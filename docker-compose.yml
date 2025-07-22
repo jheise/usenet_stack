@@ -17,3 +17,17 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
+  nzbget:
+    image: linuxserver/nzbget:latest
+    container_name: nzbget
+    ports:
+      - 6789:6789
+    volumes:
+      - /srv/nzbget:/config
+      - /sr/nzbget-data:/downloads
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "10"
