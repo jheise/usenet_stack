@@ -24,7 +24,58 @@ services:
       - 6789:6789
     volumes:
       - /srv/nzbget:/config
-      - /sr/nzbget-data:/downloads
+      - /srv/nzbget-data:/downloads
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "10"
+  sonarr:
+    image: linuxserver/sonarr:latest
+    container_name: sonarr
+    depends_on:
+            prowlarr:
+                    condition: service_started
+            nzbget:
+                    condition: service_started
+    ports:
+      - "8989:8989"
+    volumes:
+      - /svr/nzbget-data:/downloads
+      - /etc/localtime:/etc/localtime:ro
+      - /svr/sonarr:/config
+      - /media/autofs/nas/video/TV_Shows:/tv
+    environment:
+      - TZ=UTC
+      - PUID=0
+      - PGID=0
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  radarr:
+    image: linuxserver/radarr:latest
+    container_name: radarr
+    depends_on:
+            prowlarr:
+                    condition: service_started
+            nzbget:
+                    condition: service_started
+    ports:
+      - "7878:7878"
+    volumes:
+      - /svr/nzbget-data:/downloads
+      - /etc/localtime:/etc/localtime:ro
+      - /svr/radarr:/config
+      - /media/autofs/nas/video/Films:/movies
+    environment:
+      - TZ=UTC
+      - PUID=0
+      - PGID=0
     restart: unless-stopped
     logging:
       driver: json-file
