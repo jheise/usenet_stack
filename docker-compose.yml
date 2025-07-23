@@ -8,7 +8,7 @@ services:
       - PGID=1000
       - TZ=Etc/UTC
     volumes:
-      - /svr/prowlarr:/config
+      - /srv/prowlarr:/config
     ports:
       - 9696:9696
     restart: unless-stopped
@@ -42,9 +42,9 @@ services:
     ports:
       - "8989:8989"
     volumes:
-      - /svr/nzbget-data:/downloads
+      - /srv/nzbget-data:/downloads
       - /etc/localtime:/etc/localtime:ro
-      - /svr/sonarr:/config
+      - /srv/sonarr:/config
       - /media/autofs/nas/video/TV_Shows:/tv
     environment:
       - TZ=UTC
@@ -68,9 +68,9 @@ services:
     ports:
       - "7878:7878"
     volumes:
-      - /svr/nzbget-data:/downloads
+      - /srv/nzbget-data:/downloads
       - /etc/localtime:/etc/localtime:ro
-      - /svr/radarr:/config
+      - /srv/radarr:/config
       - /media/autofs/nas/video/Films:/movies
     environment:
       - TZ=UTC
