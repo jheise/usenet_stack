@@ -83,9 +83,9 @@ services:
         max-size: "10m"
         max-file: "10"
 
-  lidar:
-    image: linuxserver/lidar:latest
-    container_name: lidar
+  lidarr:
+    image: linuxserver/lidarr:latest
+    container_name: lidarr
     depends_on:
             prowlarr:
                     condition: service_started
@@ -96,7 +96,7 @@ services:
     volumes:
       - /srv/nzbget-data:/downloads
       - /etc/localtime:/etc/localtime:ro
-      - /srv/lidar:/config
+      - /srv/lidarr:/config
       - /media/autofs/nas/video/music:/music
     environment:
       - TZ=UTC
