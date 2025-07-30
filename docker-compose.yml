@@ -82,3 +82,29 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
+
+  lidar:
+    image: linuxserver/lidar:latest
+    container_name: lidar
+    depends_on:
+            prowlarr:
+                    condition: service_started
+            nzbget:
+                    condition: service_started
+    ports:
+      - "8686:8686"
+    volumes:
+      - /srv/nzbget-data:/downloads
+      - /etc/localtime:/etc/localtime:ro
+      - /srv/lidar:/config
+      - /media/autofs/nas/video/music:/music
+    environment:
+      - TZ=UTC
+      - PUID=0
+      - PGID=0
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "10"
