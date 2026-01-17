@@ -97,7 +97,7 @@ services:
       - /srv/nzbget-data:/downloads
       - /etc/localtime:/etc/localtime:ro
       - /srv/lidarr:/config
-      - /media/autofs/nas/video/music:/music
+      - /media/autofs/nas/audio:/music
     environment:
       - TZ=UTC
       - PUID=0
