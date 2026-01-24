@@ -110,7 +110,7 @@ services:
         max-file: "10"
 
   navidrome:
-    image: delaun/navidrome:latest
+    image: deluan/navidrome:latest
     ports:
       - "4533:4533"
     volumes:
