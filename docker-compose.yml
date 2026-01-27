@@ -111,6 +111,7 @@ services:
 
   navidrome:
     image: deluan/navidrome:latest
+    container_name: navidrome
     ports:
       - "4533:4533"
     volumes:
@@ -120,6 +121,22 @@ services:
       ND_SCANSCHEDULE: 1h
       ND_LOGLEVEL: info
       ND_BASEURL: ""
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  homarr:
+    image: ghcr.io/homarr-labs/homarr:latest
+    container_name: homarr
+    ports:
+      - "7575:7575"
+    volumes:
+      - /srv/homarr:/appdata
+    environment:
+      - SECRET_ENCRYPTION_KEY=4dd7ece0c7cf9eac6fc1f8006f37caadb863255a80380b5549a25de4277bf52c
     restart: unless-stopped
     logging:
       driver: json-file
